@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu des Donateurs TikTok</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            color: #333;
+        }
+        .counter {
+            font-size: 48px;
+            font-weight: bold;
+            color: green;
+        }
+        .donation-input {
+            margin: 20px 0;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+            width: 250px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .donators-list {
+            margin-top: 30px;
+        }
+        .donator {
+            margin: 10px 0;
+            font-size: 18px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Jeu des Donateurs TikTok</h1>
+    
+    <div class="counter">Montant total : <span id="totalAmount">0</span> €</div>
+    
+    <div class="donation-input">
+        <input type="text" id="donatorName" placeholder="Nom du donateur" required>
+        <input type="number" id="donationAmount" placeholder="Montant du don (€)" required>
+        <button onclick="addDonation()">Ajouter Don</button>
+    </div>
+    
+    <div class="donators-list">
+        <h2>Liste des Donateurs</h2>
+        <div id="donatorList"></div>
+    </div>
+
+    <script>
+        let totalAmount = 0;
+
+        function addDonation() {
+            // Récupère les valeurs des inputs
+            let name = document.getElementById("donatorName").value;
+            let amount = parseFloat(document.getElementById("donationAmount").value);
+
+            // Vérifie que les champs ne sont pas vides et que le montant est valide
+            if (name !== "" && !isNaN(amount) && amount > 0) {
+                // Ajoute le montant au total
+                totalAmount += amount;
+                document.getElementById("totalAmount").textContent = totalAmount.toFixed(2);
+
+                // Affiche le nouveau donateur dans la liste
+                let donatorList = document.getElementById("donatorList");
+                let newDonator = document.createElement("div");
+                newDonator.className = "donator";
+                newDonator.textContent = `${name} a donné ${amount.toFixed(2)} €`;
+                donatorList.appendChild(newDonator);
+
+                // Réinitialise les champs
+                document.getElementById("donatorName").value = "";
+                document.getElementById("donationAmount").value = "";
+            } else {
+                alert("Veuillez entrer un nom et un montant de don valide.");
+            }
+        }
+    </script>
+
+</body>
+</html>
